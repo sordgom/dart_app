@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'dart:io' show Platform;
 
+//These variables can help us extracting wifi
 const String STA_DEFAULT_SSID = "STA_SSID";
 const String STA_DEFAULT_PASSWORD = "STA_PASSWORD";
 const NetworkSecurity STA_DEFAULT_SECURITY = NetworkSecurity.WPA;
-
 const String AP_DEFAULT_SSID = "AP_SSID";
 const String AP_DEFAULT_PASSWORD = "AP_PASSWORD";
 
@@ -25,10 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Sucure',
       home: Scaffold(
         body: Home(),
       ),
@@ -38,18 +33,18 @@ class MyApp extends StatelessWidget {
 
 class Home extends StatefulWidget {
   @override
-  _FlutterWifiIoTState createState() => _FlutterWifiIoTState();
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     // Figma Flutter Generator WelcomeWidget - FRAME
-    return InitialPage(context,"Let's get started",95);
+    return Welcome(context);
   }
 }
 
-Widget InitialPage(BuildContext context,String message,double buttonWidth){
+Widget Welcome(BuildContext context){
     return Container(
         width: MediaQuery
             .of(context)
@@ -96,7 +91,7 @@ Widget InitialPage(BuildContext context,String message,double buttonWidth){
                       .of(context)
                       .size
                       .height*3/4,
-                  left: buttonWidth,
+                  left: 95,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(233, 94, 94, 1),
@@ -106,10 +101,10 @@ Widget InitialPage(BuildContext context,String message,double buttonWidth){
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => InitialPage(context,"Scan",161))
+                              builder: (context) => Scan(context))
                       );
                     },
-                    child: Text(message),
+                    child: Text("Let's get started"),
                   )
               ), Positioned( //The Circle
                   top: -20,
@@ -139,7 +134,209 @@ Widget InitialPage(BuildContext context,String message,double buttonWidth){
             ]
         )
     );
-  }
+  } //First page
+
+Widget Scan(BuildContext context){
+  return Container(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(252, 221, 236, 1),
+      ),
+      child: Stack(
+          children: <Widget>[
+            Positioned(
+                top: 323,
+                left: 110,
+                child: Text(
+                  'SUCURE', textAlign: TextAlign.center, style: TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 1),
+                    fontFamily: 'Quando',
+                    fontSize: 48,
+                    letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+                    fontWeight: FontWeight.normal,
+                    height: 1
+                ),)
+            ), Positioned(
+                top: 128,
+                left: 110,
+                child: Container(
+                    width: 189,
+                    height: 182,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/Ellipse1.png'),
+                          fit: BoxFit.fitWidth
+                      ),
+                      borderRadius: BorderRadius.all(
+                          Radius.elliptical(189, 182)),
+                    )
+                )
+            ), Positioned(
+                top:  MediaQuery
+                    .of(context)
+                    .size
+                    .height*3/4,
+                left: 155,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(233, 94, 94, 1),
+                      onPrimary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 25)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wifi(context))
+                    );
+                  },
+                  child: Text("Scan"),
+                )
+            ), Positioned( //The Circle
+                top: -20,
+                left: -100,
+                child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(233, 94, 94, 1),
+                      borderRadius: BorderRadius.all(
+                          Radius.elliptical(200, 200)),
+                    )
+                )
+            ), Positioned( //The Circles
+                top: -128,
+                left: -32,
+                child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(233, 94, 94, 1),
+                      borderRadius: BorderRadius.all(
+                          Radius.elliptical(200, 200)),
+                    )
+                )
+            )
+          ]
+      )
+  );
+}  //Second page
+
+Widget Wifi(BuildContext context){
+  return Container(
+    width: MediaQuery
+        .of(context)
+        .size
+        .width,
+    height: MediaQuery
+        .of(context)
+        .size
+        .height,
+    decoration: BoxDecoration(
+      color: Color.fromRGBO(252, 221, 236, 1),
+    ),
+    child: Stack(
+        children: [
+          ListView(
+            padding: const EdgeInsets.all(80),
+            children: <Widget>[
+              Container(
+                height: 50,
+                color: Color.fromRGBO(233, 94, 94, 1),
+                child:  ElevatedButton.icon(
+                  label: Text("Wifi A"),
+                  icon: Icon(
+                    Icons.wifi,
+                    size:24.0,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(233, 94, 94, 1),
+                      onPrimary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 25)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wifi(context))
+                    );
+                  },
+                ),
+              ),Container(
+                height: 50,
+                color: Color.fromRGBO(233, 94, 94, 1),
+                child:  ElevatedButton.icon(
+                  label: Text("Wifi B"),
+                  icon: Icon(
+                    Icons.wifi,
+                    size:24.0,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(233, 94, 94, 1),
+                      onPrimary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 25)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wifi(context))
+                    );
+                  },
+                ),
+              ),Container(
+                height: 50,
+                color: Color.fromRGBO(233, 94, 94, 1),
+                child:  ElevatedButton.icon(
+                  label: Text("Wifi C"),
+                  icon: Icon(
+                    Icons.wifi,
+                    size:24.0,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(233, 94, 94, 1),
+                      onPrimary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 25)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wifi(context))
+                    );
+                  },
+                ),
+              ),Container(
+                height: 50,
+                color: Color.fromRGBO(233, 94, 94, 1),
+                child:  ElevatedButton.icon(
+                  label: Text("Wifi D"),
+                  icon: Icon(
+                    Icons.wifi,
+                    size:24.0,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(233, 94, 94, 1),
+                      onPrimary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 25)),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wifi(context))
+                    );
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
+  ),
+  );
+} //Third page
 
 class _FlutterWifiIoTState extends State<Home> {
   String? _sPreviousAPSSID = "";
@@ -821,258 +1018,14 @@ class _FlutterWifiIoTState extends State<Home> {
       ),
     );
   }
-}
+} //This is a class to that will connect the mobile phone to wifi ; currently not used
 
 class PopupCommand {
   String command;
   String argument;
 
   PopupCommand(this.command, this.argument);
-}
-class WelcomeWidget1 extends StatefulWidget {
-  @override
-  _WelcomeWidgetState1 createState() => _WelcomeWidgetState1();
-}
+} //wifi class helper
 
-class _WelcomeWidgetState1 extends State<WelcomeWidget1> {
-  @override
-  Widget build(BuildContext context) {
-    // Figma Flutter Generator WelcomeWidget - FRAME
 
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color : Color.fromRGBO(252, 221, 236, 1),
-        ),
-        child: Stack(
-            children: <Widget>[
-              Positioned(
-                  top: 323,
-                  left: 110,
-                  child: Text('SUCURE', textAlign: TextAlign.center, style: TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      fontFamily: 'Quando',
-                      fontSize: 48,
-                      letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                  ),)
-              ),Positioned(
-                  top: 128,
-                  left: 110,
-                  child: Container(
-                      width: 189,
-                      height: 182,
-                      decoration: BoxDecoration(
-                        image : DecorationImage(
-                            image: AssetImage('assets/Ellipse1.png'),
-                            fit: BoxFit.fitWidth
-                        ),
-                        borderRadius : BorderRadius.all(Radius.elliptical(189, 182)),
-                      )
-                  )
-              ),Positioned(
-                  top: 492,
-                  left: 90,
-                  child: ElevatedButton(
-                    style:  ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(233, 94, 94, 1),
-                        onPrimary: Colors.black,
-                        textStyle: const TextStyle(fontSize: 25)),
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => WelcomeWidget2())
-                      );
-                    },
-                    child: const Text("Let's get started"),
-                  )
-              ),Positioned( //The Circle
-                  top: -20,
-                  left: -100,
-                  child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color : Color.fromRGBO(233, 94, 94, 1),
-                        borderRadius : BorderRadius.all(Radius.elliptical(200, 200)),
-                      )
-                  )
-              ),Positioned( //The Circles
-                  top: -128,
-                  left: -32,
-                  child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color : Color.fromRGBO(233, 94, 94, 1),
-                        borderRadius : BorderRadius.all(Radius.elliptical(200, 200)),
-                      )
-                  )
-              )
-            ]
-        )
-    );
-  }
-  
-}
 
-class WelcomeWidget2 extends StatefulWidget {
-  @override
-  _WelcomeWidgetState2 createState() => _WelcomeWidgetState2();
-}
-
-class _WelcomeWidgetState2 extends State<WelcomeWidget2> {
-  @override
-  Widget build(BuildContext context) {
-    // Figma Flutter Generator WelcomeWidget - FRAME
-
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color : Color.fromRGBO(252, 221, 236, 1),
-        ),
-        child: Stack(
-            children: <Widget>[
-              Positioned(
-                  top: 323,
-                  left: 110,
-                  child: Text('SUCURE', textAlign: TextAlign.center, style: TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      fontFamily: 'Quando',
-                      fontSize: 48,
-                      letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                      fontWeight: FontWeight.normal,
-                      height: 1
-                  ),)
-              ),Positioned(
-                  top: 128,
-                  left: 110,
-                  child: Container(
-                      width: 189,
-                      height: 182,
-                      decoration: BoxDecoration(
-                        image : DecorationImage(
-                            image: AssetImage('assets/Ellipse1.png'),
-                            fit: BoxFit.fitWidth
-                        ),
-                        borderRadius : BorderRadius.all(Radius.elliptical(189, 182)),
-                      )
-                  )
-              ),Positioned(
-                  top: 492,
-                  left: 160,
-                  child: ElevatedButton(
-                    style:  ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(233, 94, 94, 1),
-                        onPrimary: Colors.black,
-                        textStyle: const TextStyle(fontSize: 25)),
-                    onPressed: (){},
-                    child: const Text("Scan"),
-                  )
-              ),Positioned( //The Circle
-                  top: -20,
-                  left: -100,
-                  child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color : Color.fromRGBO(233, 94, 94, 1),
-                        borderRadius : BorderRadius.all(Radius.elliptical(200, 200)),
-                      )
-                  )
-              ),Positioned( //The Circles
-                  top: -128,
-                  left: -32,
-                  child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color : Color.fromRGBO(233, 94, 94, 1),
-                        borderRadius : BorderRadius.all(Radius.elliptical(200, 200)),
-                      )
-                  )
-              )
-            ]
-        )
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
