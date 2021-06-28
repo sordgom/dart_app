@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Scan.dart';
+import 'ScanPage.dart';
 
 class Welcome extends StatelessWidget{
 
@@ -63,7 +63,7 @@ class Welcome extends StatelessWidget{
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Scan())
+                              builder: (context) => ScanPage())
                       );
                     },
                     child: const Text("Let's get started"),

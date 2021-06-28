@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/WifiInfo.dart';
 
-class Wifi extends StatelessWidget {
+class WifiList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String wifi1='BigBoy @unifi';
@@ -41,7 +41,7 @@ class Wifi extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => new WifiInfo(wifi1,'a','a','a','a','a','a','a','a','a'))
+                          builder: (context) => new WifiInfo(wifi1,'a','a','a','a','a','a','a','a','a')) //For now , we only take the name of  the wifi ignoring the rest
                   );
                 },
               ),
@@ -62,7 +62,7 @@ class Wifi extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => new WifiInfo(wifi2,'a','a','a','a','a','a','a','a','a'))
+                          builder: (context) => new WifiInfo(wifi2,'a','a','a','a','a','a','a','a','a')) //For now , we only take the name of  the wifi ignoring the rest
                   );
                 },
               ),

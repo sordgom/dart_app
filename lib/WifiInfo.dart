@@ -15,6 +15,7 @@ class WifiInfo extends StatelessWidget{
   String MacAddress;
   String Manufacturer;
   String Description;
+  var tcVisibility=false;
   WifiInfo(this.SSID,this.SecurityType,this.LinkSpeed,this.IPv6,this.IPv4,this.NetworkBand,this.DriverVersion,this.MacAddress,this.Manufacturer,this.Description);
   @override
   Widget build(BuildContext context) {
@@ -291,8 +292,14 @@ class WifiInfo extends StatelessWidget{
                       ]
                   ),
                 ),
-
               ),
+
+              Visibility(
+                  visible: tcVisibility,
+                  child: Text(
+                    'Activated',
+                    style: TextStyle(color: Colors.red),
+                  )),
               Row(children: [
                 SizedBox(width:55),
                 ElevatedButton(
@@ -300,7 +307,9 @@ class WifiInfo extends StatelessWidget{
                       primary : Color.fromRGBO(233, 94, 94, 1),
                       textStyle: const TextStyle(fontSize: 20),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                  onPressed: () {},
+                  onPressed: () {
+                    tcVisibility=true;
+                  },
                   child: const Text('Disconnect'),
                 ),
                 SizedBox(width:25),

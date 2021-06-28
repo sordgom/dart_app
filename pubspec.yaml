@@ -10,12 +10,17 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_svg : ^0.22.0
-  flutter_awesome_buttons: ^0.1.0
-  wifi_iot: ^0.3.3
-  cupertino_icons: ^1.0.2
+    flutter:
+      sdk: flutter
+    flutter_svg : ^0.22.0
+    flutter_awesome_buttons: ^0.1.0
+    wifi_iot: ^0.3.3
+    cupertino_icons: ^1.0.2
+    # detect if has internet
+    connectivity: ^3.0.6
+
+    # show top snackbar
+    overlay_support: ^1.2.1
 
 dev_dependencies:
   flutter_test:

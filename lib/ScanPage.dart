@@ -1,9 +1,65 @@
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/Wifi.dart';
+import 'package:project/WifiList.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'Utils.dart';
 
-class Scan extends StatelessWidget {
+class ScanPage extends StatelessWidget{
+  static final String title='Has Internet?';
 
+  @override
+  Widget build(BuildContext context) => OverlaySupport(
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: title,
+      theme: ThemeData(primarySwatch: Colors.teal),
+      home: Scan(title: title),
+    ),
+  );
+}
+class Scan extends StatefulWidget {
+
+  final String title;
+
+  const Scan({
+    required this.title,
+  });
+
+  @override
+  _ScanState createState() => _ScanState();
+}
+
+class _ScanState extends State<Scan>{
+  
+  late StreamSubscription subscription;
+  
+  @override
+  void initState() {
+    super.initState();
+
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivitySnackBar);
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+
+    super.dispose();
+  }
+
+  void showConnectivitySnackBar(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    final message = hasInternet
+        ? 'You are connected!'
+        : 'You have no internet';
+    final color = hasInternet ? Colors.green : Colors.red;
+
+    Utils.showTopSnackBar(context, message, color);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,6 +103,23 @@ class Scan extends StatelessWidget {
                             Radius.elliptical(189, 182)),
                       )
                   )
+              ),Positioned(
+                  top: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 3 / 4-50,
+                  left: 80,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(233, 94, 94, 1),
+                        onPrimary: Colors.black,
+                        textStyle: const TextStyle(fontSize: 25)),
+                    onPressed: () async{
+                      final result = await Connectivity().checkConnectivity();
+                      showConnectivitySnackBar(result);
+                    },
+                    child: Text("Check connectivity"),
+                  )
               ), Positioned(
                   top: MediaQuery
                       .of(context)
@@ -62,12 +135,13 @@ class Scan extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => new Wifi())
+                              builder: (context) => new WifiList())
                       );
                     },
                     child: Text("Scan"),
                   )
-              ), Positioned( //The Circle
+              ),
+              Positioned( //The Circle
                   top: -20,
                   left: -100,
                   child: Container(
@@ -96,6 +170,8 @@ class Scan extends StatelessWidget {
         )
     );
   }
+
+
 
 
 }

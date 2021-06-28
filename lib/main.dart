@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'package:project/WifiInfo.dart';
-import 'package:project/Wifi.dart';
+import 'package:project/WifiList.dart';
 import 'dart:io' show Platform;
 
-import 'Scan.dart';
+import 'ScanPage.dart';
 import 'Welcome.dart';
 
+//Navigate the application
+//Home => Welcome => Scan => Wifi => wifiInfo
 //These variables can help us extracting wifi
 const String STA_DEFAULT_SSID = "STA_SSID";
 const String STA_DEFAULT_PASSWORD = "STA_PASSWORD";
@@ -22,7 +24,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
