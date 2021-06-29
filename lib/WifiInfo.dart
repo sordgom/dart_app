@@ -1,8 +1,13 @@
-
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project/WifiInfo.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'Utils.dart';
 
 class WifiInfo extends StatelessWidget{
+  static final String title='Sucure';
   bool activated=false;
   bool deactivated=false;
   String SSID;
@@ -17,6 +22,7 @@ class WifiInfo extends StatelessWidget{
   String Description;
   var tcVisibility=false;
   WifiInfo(this.SSID,this.SecurityType,this.LinkSpeed,this.IPv6,this.IPv4,this.NetworkBand,this.DriverVersion,this.MacAddress,this.Manufacturer,this.Description);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -301,7 +307,7 @@ class WifiInfo extends StatelessWidget{
                     style: TextStyle(color: Colors.red),
                   )),
               Row(children: [
-                SizedBox(width:55),
+                SizedBox(width:135),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       primary : Color.fromRGBO(233, 94, 94, 1),
@@ -310,15 +316,6 @@ class WifiInfo extends StatelessWidget{
                   onPressed: () {
                     tcVisibility=true;
                   },
-                  child: const Text('Disconnect'),
-                ),
-                SizedBox(width:25),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary : Color.fromRGBO(233, 94, 94, 1),
-                      textStyle: const TextStyle(fontSize: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                  onPressed: () {},
                   child: const Text('Activate'),
                 ),
               ],)
@@ -327,4 +324,3 @@ class WifiInfo extends StatelessWidget{
     );
   }
 }
-
