@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/WifiList.dart';
+import 'package:project/WifiInfo.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'Utils.dart';
 
 class ScanPage extends StatelessWidget{
-  static final String title='Has Internet?';
+  static final String title='Sucure';
 
   @override
   Widget build(BuildContext context) => OverlaySupport(
@@ -108,10 +108,10 @@ class _ScanState extends State<Scan>{
                       .of(context)
                       .size
                       .height * 3 / 4-50,
-                  left: 80,
+                  left: 75,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(233, 94, 94, 1),
+                        primary: Color.fromRGBO(76, 175, 60, 1.0),
                         onPrimary: Colors.black,
                         textStyle: const TextStyle(fontSize: 25)),
                     onPressed: () async{
@@ -125,7 +125,7 @@ class _ScanState extends State<Scan>{
                       .of(context)
                       .size
                       .height * 3 / 4,
-                  left: 155,
+                  left: 135,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(233, 94, 94, 1),
@@ -135,10 +135,10 @@ class _ScanState extends State<Scan>{
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => new WifiList())
+                              builder: (context) => new WifiInfo('AndroidWifi','a','a','a','a','a','a','a','a','a'))
                       );
                     },
-                    child: Text("Scan"),
+                    child: Text("Proceed"),
                   )
               ),
               Positioned( //The Circle
@@ -170,8 +170,4 @@ class _ScanState extends State<Scan>{
         )
     );
   }
-
-
-
-
 }
