@@ -1,4 +1,4 @@
-# project
+# Mobile app
 
 A mobile application frontend for a security company
 
