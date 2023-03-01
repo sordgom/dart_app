@@ -16,4 +16,4 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Run
-Just upload it to android studio atm , and run it ; 
+Just upload it in android studio or any IDE, and run it ; 
